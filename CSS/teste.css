@@ -1,0 +1,252 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
+:root {
+    --primaryCard: #ffffffc4;
+    --navy-l: #0a0a8a;
+    --orange: #5252aa;
+    --orange-hover: #6666bb;
+    --orange-d: #5252aa;
+    --orange-l: #ffedd5;
+    --bg: #f1f1fd;
+    --bgCard: #f0f0ff;
+    --text: #5252aa;
+    --text-m: #777;
+    --text-l: #9090a8;
+    --btnText: #efefff;
+    --border: #5252aa;
+    --shadow: 0 2px 16px rgba(2, 2, 74, .08);
+    --shadow-l: 0 8px 32px rgba(2, 2, 74, .14);
+    --radius: 12px;
+    --radius-s: 8px;
+    --transition: .22s cubic-bezier(.4, 0, .2, 1);
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Work Sans', 'Montserrat';
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+}
+
+.container-pagina {
+    max-width: 1700px;
+    margin: 0 auto;
+    padding: 60px 40px;
+}
+
+.tabela-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 28px;
+}
+
+.tabela-header h1 {
+    font-size: 1.6rem;
+    color: var(--text);
+}
+
+.tabela-header p {
+    color: var(--text-m);
+    font-size: .9rem;
+    margin-top: 2px;
+}
+
+.btn-header {
+    text-decoration: none;
+    color: var(--btnText);
+    border: 1px solid var(--orange-d);
+    border-radius: 6px;
+    padding: 5px 15px;
+    background: var(--orange-d);
+}
+
+.btn-header:hover {
+    background-color: var(--orange-hover);
+}
+
+.alerta {
+    padding: 14px 16px;
+    border-radius: 6px;
+    font-size: .9rem;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.alerta-ok {
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    color: #166534;
+}
+
+.tabela-wrapper {
+    background: var(--bgCard);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    overflow-x: auto;
+}
+
+.tabela {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: .9rem;
+}
+
+.tabela thead {
+    background: var(--primaryCard);
+    position: sticky;
+    top: 0;
+}
+
+.tabela thead th {
+    padding: 16px 18px;
+    text-align: left;
+    color: var(--orange);
+    font-family: 'Work Sans', 'Montserrat';
+    font-size: .8rem;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    white-space: nowrap;
+}
+
+.tabela tbody tr {
+    transition: var(--transition);
+}
+
+.tabela tbody tr:hover {
+    background: var();
+}
+
+.tabela tbody td {
+    padding: 14px 18px;
+}
+
+.td-nome a {
+    color: var(--text);
+    font-weight: 500;
+    transition: var(--transition);
+}
+
+.td-nome a:hover {
+    color: var(--orange);
+}
+
+.td-acao {
+    text-align: left;
+    white-space: nowrap;
+    display: flex;
+    gap: 6px;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.btn-acao {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-s);
+    border: 1.5px solid var(--border);
+    background: none;
+    cursor: pointer;
+    font-size: .9rem;
+    transition: var(--transition);
+    color: var(--text-m);
+}
+
+.btn-ver:hover {
+    border-color: var(--orange-l);
+    color: var(--orange-l);
+}
+
+.btn-del:hover {
+    border-color: #ef4444;
+    color: #ef4444;
+}
+
+.tabela tfoot tr.rodape-tabela {
+    background: var(--primaryCard);
+}
+
+.tabela tfoot td {
+    padding: 16px 18px;
+    color: rgba(255, 255, 255, .85);
+}
+
+.tabela tfoot .td-num {
+    text-align: left;
+}
+
+.tabela tfoot .td-num small {
+    display: block;
+    font-size: .7rem;
+    color: rgba(255, 255, 255, .45);
+    font-weight: 400;
+}
+
+.tabela tfoot .destaque strong {
+    color: var(--orange);
+    font-size: 1.05rem;
+}
+
+.paginacao {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin: 30px 0;
+}
+
+.box-num {
+    display: flex;
+    gap: 10px;
+}
+
+.box-num a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    
+    border: 2px solid var(--orange-d);
+    border-radius: 10px;
+    background: var(--primaryCard);
+    
+    color: var(--orange);
+    text-decoration: none;
+    font-weight: 600;
+
+    transition: all 0.3s ease;
+}
+
+.box-num a:hover {
+    transform: translateY(-2px);
+}
+
+.paginacao a.ativo {
+    background: var(--primaryCard);
+    color: #fff;
+    box-shadow: 0 4px 10px rgba(255, 107, 0, 0.3);
+}
+
+.paginacao i {
+    color: var(--orange);
+    font-size: 20px;
+}
