@@ -6,55 +6,76 @@ $musicas = readAll($pdo, 'musicas');
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (isset($_POST['deletar_id'])) {
+        $idMusica = $_POST['deletar_id'];
 
-        $musicas = array_filter(
-            $musicas,
-            fn($m) => $m['id'] !== $_POST['deletar_id']
-        );
+        $deleted = delete($pdo, 'musicas', 'id = ' . $idMusica);
 
-        header("Location: teste.php");
+        header("Location: index.php");
         exit;
     }
+        
+    // if (isset($_POST['deletar_id'])) {
+
+    //     delete($pdo, 'musicas', 'id = '.$_POST['deletar_id']);
+
+    //     if ($deleted) {
+    //         echo 'Livro excluido com sucesso';
+    //     } else {
+    //         echo 'Não foi possivel excluir o livro';
+    //     }
+
+    //     header("Location: index.php");
+    //     exit;
+    // }
 
     if (isset($_POST['acao']) && $_POST['acao'] === 'cadastrar') {
-        $musicas[] = [
-            'id' => uniqid(),
-            'nome' => $_POST['nome'],
+        $novaMusica = [
+            'titulo' => $_POST['nome'],
             'genero' => $_POST['genero'],
             'cantor' => $_POST['cantor'],
             'duracao' => $_POST['duracao'],
             'link' => $_POST['link']
         ];
+
+        $idMusicaNova = create($pdo, 'musicas', $novaMusica);
+        if ($idMusicaNova) {
+            header("Location: index.php");
+            exit;
+        } 
     }
 
     if (isset($_POST['acao']) && $_POST['acao'] === 'editar') {
-        foreach ($musicas as &$m) {
-            if ($m['id'] === $_POST['id']) {
-                $m['nome'] = $_POST['nome'];
-                $m['genero'] = $_POST['genero'];
-                $m['cantor'] = $_POST['cantor'];
-                $m['duracao'] = $_POST['duracao'];
-                $m['link'] = $_POST['link'];
-            }
+        $dadosAtualizados = [
+            'titulo' => $_POST['edit_nome'],
+            'genero' => $_POST['edit_genero'],
+            'cantor' => $_POST['edit_cantor'],
+            'duracao' => $_POST['edit_duracao'],
+            'link' => $_POST['edit_link']
+        ];
+
+        $linhasAfetadas = update($pdo, 'musicas', $dadosAtualizados, 'id = '.$_POST['id']);
+        if ($linhasAfetadas > 0) {
+            echo 'Livro atualizado com sucesso!!!';
+        } else {
+            echo 'Não foi possível atualizar o livro!!!';
         }
     }
 
-    header("Location: teste.php");
+    header("Location: index.php");
     exit;
 }
 
 ?>
 
 <!DOCTYPE html>
-<html lang="Pt-br">
+<html lang="pt-br">
 
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Playlist - VibeVault</title>
+        <title>Playlist</title>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
         <link rel="stylesheet" href="css/style.css">
-        <link rel="stylesheet" href="css/cadastrar.css">
     </head>
 
     <body>
@@ -88,11 +109,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 </td>
                             </tr>
 
-                            <?php if (!empty($_SESSION['musicas'])): ?>
+                            <?php if (!empty($musicas)): ?>
 
-                                <?php foreach ($_SESSION['musicas'] as $musica): ?>
+                                <?php foreach ($musicas as $musica): ?>
                                     <tr>
-                                        <td><?= htmlspecialchars($musica['nome']) ?></td>
+                                        <td><?= htmlspecialchars($musica['titulo']) ?></td>
                                         <td><?= htmlspecialchars($musica['genero']) ?></td>
                                         <td><?= htmlspecialchars($musica['cantor']) ?></td>
                                         <td><?= htmlspecialchars($musica['duracao']) ?></td>
@@ -113,7 +134,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                             </button>
 
                                             <form method="POST">
-                                                <button type="submit" class="btn-acao btn-del" onclick="return confirm('Deseja excluir essa música?')">
+                                                <input type="hidden" name="deletar_id" value="<?= $musica['id'] ?>">
+                                                <button type="submit" class="btn-acao btn-del"
+                                                    onclick="return confirm('Deseja excluir essa música?')">
                                                     <i class="bi bi-trash3-fill"></i>
                                                 </button>
                                             </form>
@@ -146,11 +169,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <input type="hidden" name="acao" value="editar">
                 <input type="hidden" name="id" id="edit_id">
 
-                <input type="text" name="nome" id="edit_nome">
-                <input type="text" name="genero" id="edit_genero">
-                <input type="text" name="cantor" id="edit_cantor">
-                <input type="text" name="duracao" pattern="^[0-9]{1,2}:[0-5][0-9]$" id="edit_duracao">
-                <input type="text" name="link" id="edit_link">
+                <input type="text" name="edit_nome" id="edit_nome">
+                <input type="text" name="edit_genero" id="edit_genero">
+                <input type="text" name="edit_cantor" id="edit_cantor">
+                <input type="time" name="edit_duracao" id="edit_duracao"> 
+                <input type="text" name="edit_link" id="edit_link">
 
                 <button type="submit">Salvar Alterações</button>
             </form>
@@ -171,7 +194,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <input type="text" name="nome" placeholder="Nome" required>
                 <input type="text" name="genero" placeholder="Gênero" required>
                 <input type="text" name="cantor" placeholder="Cantor" required>
-                <input type="text" name="duracao" pattern="^[0-9]{1,2}:[0-5][0-9]$" placeholder="Duração" required>
+                <input type="time" name="duracao" placeholder="Duração">
                 <input type="text" name="link" placeholder="Link" >
 
                 <button type="submit">Salvar</button>
@@ -209,7 +232,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         abrirModal('modalEditar');
 
         document.getElementById('edit_id').value = musica.id;
-        document.getElementById('edit_nome').value = musica.nome;
+        document.getElementById('edit_nome').value = musica.titulo;
         document.getElementById('edit_genero').value = musica.genero;
         document.getElementById('edit_cantor').value = musica.cantor;
         document.getElementById('edit_duracao').value = musica.duracao;
@@ -219,7 +242,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     function abrirVisualizar(musica) {
         abrirModal('modalVisualizar');
 
-        document.getElementById('view_nome').innerText = musica.nome;
+        document.getElementById('view_nome').innerText = musica.titulo;
         document.getElementById('view_cantor').innerText = musica.cantor;
         document.getElementById('view_genero').innerText = musica.genero;
         document.getElementById('view_duracao').innerText = musica.duracao;
@@ -227,7 +250,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         let linkBox = document.getElementById('view_link_box');
 
         if (musica.link) {
-            linkBox.innerHTML = `<a href="${musica.link}" target="_blank">▶ Ouvir música</a>`;
+            linkBox.innerHTML = `<a href="${musica.link}" target="_blank"><i class="bi bi-play-fill"></i> Ouvir música</a>`;
         } else {
             linkBox.innerHTML = `<p>Sem link disponível</p>`;
         }

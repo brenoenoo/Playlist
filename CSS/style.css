@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
 
 :root {
-    --primaryCard: #ffffffc4;
+    --primaryCard: #f6faff;
     --navy-l: #0a0a8a;
     --orange: #5252aa;
     --orange-hover: #6666bb;
@@ -81,22 +81,6 @@ body {
 .btn-add:hover {
     transform: scale(1.02);
     background-color: var(--orange-hover);
-}
-
-.alerta {
-    padding: 14px 16px;
-    border-radius: 6px;
-    font-size: .9rem;
-    margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.alerta-ok {
-    background: #f0fdf4;
-    border: 1px solid #bbf7d0;
-    color: #166534;
 }
 
 .tabela-wrapper {
