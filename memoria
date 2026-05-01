@@ -1,9 +1,0 @@
-:root {
-    --bg: #f1f1fd;
-    --primary: #5252aa;
-    --bgCard: #f0f0ff;
-    --borderCard: #4d4d63;
-    --bgInput: #efefff;
-    --borderInput: #4d4d63;
-    --text: ;
-}

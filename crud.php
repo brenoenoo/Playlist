@@ -2,7 +2,7 @@
 // Configurações de conexão com o banco de dados (ajuste conforme sua configuração)
 $host = "localhost";
 $port = 3306;
-$dbname = "db_2td";
+$dbname = "playlist_senai";
 $username = "tux";
 $password = "123";
 

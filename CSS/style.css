@@ -2,10 +2,9 @@
 
 :root {
     --primaryCard: #f6faff;
-    --navy-l: #0a0a8a;
-    --orange: #5252aa;
-    --orange-hover: #6666bb;
-    --orange-d: #5252aa;
+    --tablePrimary: #5252aa;
+    --primaryHover: #6666bb;
+    --primary: #5252aa;
     --btnVisualizar: #ffd900;
     --btnEditar: #ff7b00;
     --btnExcluir: #ff3f39;
@@ -68,19 +67,24 @@ body {
     gap: 20px;
 }
 
+.btn-add-text p {
+    display: inline-block; 
+    margin-left: 10px;
+}
+
 .btn-add {
     text-decoration: none;
     color: var(--btnText);
     border: none;
     border-radius: 6px;
     padding: 10px;
-    background: var(--orange-d);
+    background: var(--primary);
     cursor: pointer;
 }
 
 .btn-add:hover {
     transform: scale(1.02);
-    background-color: var(--orange-hover);
+    background-color: var(--primaryHover);
 }
 
 .tabela-wrapper {
@@ -99,7 +103,7 @@ body {
 }
 
 .tabela-wrapper::-webkit-scrollbar-thumb {
-    background: var(--orange);
+    background: var(--tablePrimary);
     border-radius: 10px;
 }
 
@@ -123,7 +127,7 @@ body {
 .tabela thead th {
     padding: 16px 18px;
     text-align: left;
-    color: var(--orange);
+    color: var(--tablePrimary);
     font-family: 'Work Sans', 'Montserrat';
     font-size: .8rem;
     text-transform: uppercase;
@@ -150,7 +154,7 @@ body {
 }
 
 .td-nome a:hover {
-    color: var(--orange);
+    color: var(--tablePrimary);
 }
 
 .td-acao {
@@ -187,6 +191,10 @@ body {
     color: var(--btnEditar);
 }
 
+.form-del {
+    display: inline-block;
+}
+
 .btn-del:hover {
     border-color: var(--btnExcluir);
     color: var(--btnExcluir);
@@ -213,8 +221,13 @@ body {
 }
 
 .tabela tfoot .destaque strong {
-    color: var(--orange);
+    color: var(--tablePrimary);
     font-size: 1.05rem;
+}
+
+.vazio {
+    text-align: center; 
+    padding: 20px;
 }
 
 .modal {
@@ -251,7 +264,7 @@ body {
 }
 
 .modal button {
-    background: var(--orange);
+    background: var(--tablePrimary);
     color: var(--bg);
     padding: 10px;
     border-radius: 12px;
@@ -261,7 +274,7 @@ body {
 
 .modal button:hover {
     transition: var(--transition);
-    background: var(--orange-hover);
+    background: var(--primaryHover);
     transform: scale(1.02);
 }
 
@@ -282,5 +295,5 @@ body {
 #view_link_box a:hover {
     transition: var(--transition);
     transform: scale(1.02);
-    background: var(--orange-hover);
+    background: var(--primaryHover);
 }

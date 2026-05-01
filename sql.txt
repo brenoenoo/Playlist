@@ -1,0 +1,13 @@
+CREATE DATABASE playlist_senai;
+USE playlist_senai;
+
+CREATE TABLE musicas (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    titulo VARCHAR(100) NOT NULL,
+    genero VARCHAR(100) NOT NULL,
+    cantor VARCHAR(100) NOT NULL,
+    duracao VARCHAR(100) NULL,
+    link VARCHAR(255) NULL
+);
+
+SELECT * FROM musicas;
